@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -16,14 +18,13 @@ import java.util.List;
 @Entity
 @Table(name = "murid")
 public class Murid {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "time_create")
-    private Timestamp timeAt;
+    @Column(name = "time_create", updatable = false)
+    private LocalDateTime timeAt;
     @OneToMany(mappedBy = "murid")
     private List<Pendidikan> pendidikans;
 }
